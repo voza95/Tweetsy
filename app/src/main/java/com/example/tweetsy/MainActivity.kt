@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.tweetsy.api.TweetsyApi
+import com.example.tweetsy.screens.CategoryScreen
 import com.example.tweetsy.ui.theme.TweetsyTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
@@ -21,24 +22,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
     lateinit var tweetsyApi: TweetsyApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        GlobalScope.launch {
-            var response = tweetsyApi.getCategories()
-            Log.d("LOCAL_CALL", response.body()!!.distinct().toString())
-        }
+
         setContent {
             TweetsyTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                CategoryScreen()
             }
         }
     }
